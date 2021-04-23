@@ -35,7 +35,7 @@ public class Swagger2Config {
                 .ignoredParameterTypes(MallUser.class)
                 .select()
         // 修改为自己的 controller 包路径
-        .apis(RequestHandlerSelectors.basePackage("com.mall.api"))
+        .apis(RequestHandlerSelectors.basePackage("top.dl.mall.api"))
                 .paths(PathSelectors.any())
                 .build()
                 .globalOperationParameters(swaggerParams);
