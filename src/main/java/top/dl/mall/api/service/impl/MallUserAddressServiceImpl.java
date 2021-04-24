@@ -1,5 +1,6 @@
 package top.dl.mall.api.service.impl;
 
+import org.springframework.stereotype.Service;
 import top.dl.mall.api.common.MallException;
 import top.dl.mall.api.common.ServiceResultEnum;
 import top.dl.mall.api.controller.vo.MallUserAddressVO;
@@ -15,6 +16,7 @@ import java.util.List;
 /**
  * @author Denglin
  */
+@Service
 public class MallUserAddressServiceImpl implements MallUserAddressService {
     @Resource
     private MallUserAddressMapper mallUserAddressMapper;
@@ -65,6 +67,7 @@ public class MallUserAddressServiceImpl implements MallUserAddressService {
         mallUserAddress.setUpdateTime(new Date());
         return mallUserAddressMapper.updateByPrimaryKeySelective(mallUserAddress) > 0;
     }
+
     @Override
     public MallUserAddress getMallUserAddressById(Long addressId) {
         MallUserAddress mallUserAddress = mallUserAddressMapper.selectByPrimaryKey(addressId);
@@ -73,13 +76,14 @@ public class MallUserAddressServiceImpl implements MallUserAddressService {
         }
         return mallUserAddress;
     }
+
     @Override
     public MallUserAddress getMyDefaultAddressByUserId(Long userId) {
         return mallUserAddressMapper.getMyDefaultAddress(userId);
     }
+
     @Override
     public Boolean deleteById(Long addressId) {
         return mallUserAddressMapper.deleteByPrimaryKey(addressId) > 0;
     }
 }
-

@@ -1,8 +1,5 @@
 package top.dl.mall.api.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.*;
 import top.dl.mall.api.common.ServiceResultEnum;
 import top.dl.mall.api.config.annotation.TokenToMallUser;
 import top.dl.mall.api.controller.param.SaveMallUserAddressParam;
@@ -11,6 +8,9 @@ import top.dl.mall.api.controller.vo.MallUserAddressVO;
 import top.dl.mall.api.entity.MallUser;
 import top.dl.mall.api.entity.MallUserAddress;
 import top.dl.mall.api.service.MallUserAddressService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
 import top.dl.mall.api.util.BaseBeanUtil;
 import top.dl.mall.api.util.Result;
 import top.dl.mall.api.util.ResultGenerator;
@@ -18,8 +18,8 @@ import top.dl.mall.api.util.ResultGenerator;
 import javax.annotation.Resource;
 
 /**
- * @author Denglin
  * @description: 用户地址接口
+ * @author Denglin
  */
 @RestController
 @Api(value = "v1", tags = "2.楼楼商城个人地址相关接口")
@@ -72,7 +72,8 @@ public class MallUserAddressController {
 
     @GetMapping("/address/{addressId}")
     @ApiOperation(value = "获取收货地址详情", notes = "传参为地址id")
-    public Result getMallUserAddress(@PathVariable("addressId") Long addressId, @TokenToMallUser MallUser loginMallUser) {
+    public Result getMallUserAddress(@PathVariable("addressId") Long addressId,
+                                     @TokenToMallUser MallUser loginMallUser) {
         MallUserAddress mallUserAddressById = mallUserAddressService.getMallUserAddressById(addressId);
         MallUserAddressVO louMallUserAddressVO = new MallUserAddressVO();
         BaseBeanUtil.copyProperties(mallUserAddressById, louMallUserAddressVO);
@@ -91,7 +92,8 @@ public class MallUserAddressController {
 
     @DeleteMapping("/address/{addressId}")
     @ApiOperation(value = "删除收货地址", notes = "传参为地址id")
-    public Result deleteAddress(@PathVariable("addressId") Long addressId, @TokenToMallUser MallUser loginMallUser) {
+    public Result deleteAddress(@PathVariable("addressId") Long addressId,
+                                @TokenToMallUser MallUser loginMallUser) {
         MallUserAddress mallUserAddressById = mallUserAddressService.getMallUserAddressById(addressId);
         if (!loginMallUser.getUserId().equals(mallUserAddressById.getUserId())) {
             return ResultGenerator.genFailResult(ServiceResultEnum.REQUEST_FORBIDDEN_ERROR.getResult());
@@ -104,6 +106,4 @@ public class MallUserAddressController {
         //删除失败
         return ResultGenerator.genFailResult(ServiceResultEnum.OPERATE_ERROR.getResult());
     }
-
-    }
-
+}
